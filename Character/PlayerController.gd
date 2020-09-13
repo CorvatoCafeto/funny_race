@@ -49,7 +49,6 @@ func _on_DeathCheck_area_entered(area):
 		$Shield.hide()
 		$SpringArm/Camera/Score.get_child(1).hide()
 
-
 func _on_Checkpoint_area_entered(area):
 	last_checkpoint_visited = (area as Area).translation.z
 	
@@ -68,7 +67,6 @@ func _on_Timer_timeout():
 	$MagnetArea/CollisionShape.disabled = true
 	$SpringArm/Camera/Score.get_child(2).hide()
 	pass
-
 
 func _on_MatchStart_timeout():
 	can_move = true

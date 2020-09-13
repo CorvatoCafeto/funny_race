@@ -1,0 +1,126 @@
+[gd_scene load_steps=11 format=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Carousel@Spin"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CSGCombiner/Base:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 360, 0 ) ]
+}
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.0392157, 0.890196, 0.933333, 1 )
+
+[sub_resource type="CylinderMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.862745, 0.129412, 0.129412, 1 )
+
+[sub_resource type="CylinderShape" id=5]
+
+[sub_resource type="CylinderShape" id=6]
+
+[sub_resource type="CylinderShape" id=7]
+
+[sub_resource type="CylinderShape" id=8]
+
+[sub_resource type="CylinderShape" id=9]
+
+[sub_resource type="CylinderShape" id=10]
+
+[node name="Carousel" type="Spatial"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Carousel@Spin"
+anims/Carousel@Spin = SubResource( 1 )
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+
+[node name="Base" type="CSGCylinder" parent="CSGCombiner"]
+transform = Transform( 4, 0, 0, 0, 0.075, 0, 0, 0, 4, 0, 0, 0 )
+material = SubResource( 2 )
+
+[node name="Pillar1" type="MeshInstance" parent="CSGCombiner/Base"]
+transform = Transform( 0.126606, 0, 0.00759716, 0, 13.5289, 0, -0.00759716, 0, 0.126606, 0.288535, 13.3333, 0.757358 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="StaticBody" type="Area" parent="CSGCombiner/Base/Pillar1"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Base/Pillar1/StaticBody"]
+shape = SubResource( 5 )
+
+[node name="Pillar2" type="MeshInstance" parent="CSGCombiner/Base"]
+transform = Transform( 0.125, 0, 0, 0, 13.3333, 0, 0, 0, 0.125, -0.745229, 13.3333, 0.307806 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="StaticBody" type="Area" parent="CSGCombiner/Base/Pillar2"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Base/Pillar2/StaticBody"]
+shape = SubResource( 6 )
+
+[node name="Pillar3" type="MeshInstance" parent="CSGCombiner/Base"]
+transform = Transform( 0.125, 0, 0, 0, 13.3333, 0, 0, 0, 0.125, -0.74228, 13.3333, -0.320876 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="StaticBody" type="Area" parent="CSGCombiner/Base/Pillar3"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Base/Pillar3/StaticBody"]
+shape = SubResource( 7 )
+
+[node name="Pillar4" type="MeshInstance" parent="CSGCombiner/Base"]
+transform = Transform( 0.125, 0, 0, 0, 13.3333, 0, 0, 0, 0.125, -0.287113, 13.3333, -0.758041 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="StaticBody" type="Area" parent="CSGCombiner/Base/Pillar4"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Base/Pillar4/StaticBody"]
+shape = SubResource( 8 )
+
+[node name="Pillar5" type="MeshInstance" parent="CSGCombiner/Base"]
+transform = Transform( 0.125, 0, 0, 0, 13.3333, 0, 0, 0, 0.125, 0.747157, 13.3334, -0.318759 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="StaticBody" type="Area" parent="CSGCombiner/Base/Pillar5"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Base/Pillar5/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="Pillar6" type="MeshInstance" parent="CSGCombiner/Base"]
+transform = Transform( 0.125, 0, 0, 0, 13.3333, 0, 0, 0, 0.125, 0.745321, 13.3333, 0.318058 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="StaticBody" type="Area" parent="CSGCombiner/Base/Pillar6"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGCombiner/Base/Pillar6/StaticBody"]
+shape = SubResource( 10 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="CSGCombiner"]
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0 )
+operation = 2

@@ -1,0 +1,184 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://Character/PlayerController.gd" type="Script" id=1]
+[ext_resource path="res://Character/Hero.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/Score.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.35
+height = 1.18932
+
+[sub_resource type="AnimationNodeAnimation" id=2]
+animation = "FlyLoop"
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "FlyStart"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "LeftTurn"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "Walking"
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "Running"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=8]
+blend_point_0/node = SubResource( 5 )
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource( 6 )
+blend_point_1/pos = 3.5
+blend_point_2/node = SubResource( 7 )
+blend_point_2/pos = 8.0
+min_space = 0.0
+max_space = 8.0
+value_label = "blend_position"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "RightTurn"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+advance_condition = "left_turn"
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+advance_condition = "end_left_turn"
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+advance_condition = "right_turn"
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+advance_condition = "end_right_turn"
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+advance_condition = "is_jump"
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+switch_mode = 2
+auto_advance = true
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+advance_condition = "is_not_floor"
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+advance_condition = "is_floor"
+xfade_time = 0.15
+
+[sub_resource type="AnimationNodeStateMachine" id=18]
+states/FlyLoop/node = SubResource( 2 )
+states/FlyLoop/position = Vector2( 517, 27 )
+states/FlyStart/node = SubResource( 3 )
+states/FlyStart/position = Vector2( 337, -53 )
+states/LeftTurn/node = SubResource( 4 )
+states/LeftTurn/position = Vector2( -56, -175 )
+states/Moving/node = SubResource( 8 )
+states/Moving/position = Vector2( 54, 27 )
+states/RightTurn/node = SubResource( 9 )
+states/RightTurn/position = Vector2( 158, -175 )
+transitions = [ "Moving", "LeftTurn", SubResource( 10 ), "LeftTurn", "Moving", SubResource( 11 ), "Moving", "RightTurn", SubResource( 12 ), "RightTurn", "Moving", SubResource( 13 ), "Moving", "FlyStart", SubResource( 14 ), "FlyStart", "FlyLoop", SubResource( 15 ), "Moving", "FlyLoop", SubResource( 16 ), "FlyLoop", "Moving", SubResource( 17 ) ]
+start_node = "Moving"
+graph_offset = Vector2( -319, -182.012 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=19]
+
+[sub_resource type="BoxShape" id=20]
+extents = Vector3( 0.352655, 0.933311, 0.254728 )
+
+[sub_resource type="SpatialMaterial" id=21]
+flags_transparent = true
+albedo_color = Color( 0.113725, 0.407843, 0.752941, 0.729412 )
+roughness = 0.02
+
+[sub_resource type="SphereMesh" id=22]
+material = SubResource( 21 )
+
+[sub_resource type="SphereShape" id=23]
+
+[node name="Player" type="KinematicBody"]
+collision_mask = 2147483649
+script = ExtResource( 1 )
+
+[node name="Collider" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.94, 0 )
+shape = SubResource( 1 )
+
+[node name="SpringArm" type="SpringArm" parent="."]
+transform = Transform( 0.999995, 0.00228077, 0.00211702, 0.000373866, -0.76343, 0.645891, 0.00308932, -0.645887, -0.763427, 1.12173, 2.15391, 0 )
+spring_length = 3.0
+
+[node name="Camera" type="Camera" parent="SpringArm"]
+transform = Transform( -0.999722, -0.0136795, 0.0192148, 0.0125493, -0.998253, -0.0577523, 0.0199713, -0.0574951, 0.998147, 0, 0, 0 )
+keep_aspect = 0
+current = true
+
+[node name="Score" parent="SpringArm/Camera" instance=ExtResource( 3 )]
+
+[node name="Hero_Model" type="Spatial" parent="."]
+
+[node name="Hero" parent="Hero_Model" instance=ExtResource( 2 )]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 18 )
+anim_player = NodePath("../Hero_Model/Hero/AnimationPlayer")
+active = true
+parameters/playback = SubResource( 19 )
+parameters/conditions/end_left_turn = false
+parameters/conditions/end_right_turn = false
+parameters/conditions/is_floor = true
+parameters/conditions/is_jump = false
+parameters/conditions/is_not_floor = false
+parameters/conditions/left_turn = false
+parameters/conditions/right_turn = false
+parameters/Moving/blend_position = 0.0
+
+[node name="DeathCheck" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98411, 0.0229343 )
+collision_layer = 2147483648
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="DeathCheck"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0721391, 0 )
+shape = SubResource( 20 )
+
+[node name="Checkpoint" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98411, 0.0229343 )
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape" type="CollisionShape" parent="Checkpoint"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0721391, 0 )
+shape = SubResource( 20 )
+
+[node name="Shield" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.871901, 0 )
+visible = false
+mesh = SubResource( 22 )
+material/0 = null
+
+[node name="MagnetArea" type="Area" parent="."]
+input_ray_pickable = false
+space_override = 1
+gravity_point = true
+gravity_vec = Vector3( 0, 1.5, 0 )
+gravity = 20.0
+collision_layer = 0
+collision_mask = 2147483664
+
+[node name="CollisionShape" type="CollisionShape" parent="MagnetArea"]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 1, 0 )
+shape = SubResource( 23 )
+disabled = true
+
+[node name="Timer" type="Timer" parent="."]
+[connection signal="area_entered" from="DeathCheck" to="." method="_on_DeathCheck_area_entered"]
+[connection signal="area_entered" from="Checkpoint" to="." method="_on_Checkpoint_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

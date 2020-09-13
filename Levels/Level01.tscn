@@ -1,11 +1,10 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Textures/FinishLine.png" type="Texture" id=1]
 [ext_resource path="res://Character/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Obstacles/Hammer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Character/Enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Materials/floor.tres" type="Material" id=5]
-[ext_resource path="res://Textures/Water 0339normal.jpg" type="Texture" id=6]
 [ext_resource path="res://Pickups/Powerups/Shield.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Pickups/Powerups/Magnet.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Pickups/Coin.tscn" type="PackedScene" id=9]
@@ -24,6 +23,7 @@ panorama = ExtResource( 11 )
 background_mode = 3
 background_sky = SubResource( 1 )
 background_color = Color( 0.14902, 0.505882, 0.819608, 1 )
+background_energy = 1.5
 tonemap_mode = 2
 ssao_radius = 2.46
 dof_blur_far_distance = 15.0
@@ -31,15 +31,6 @@ dof_blur_far_transition = 10.0
 dof_blur_far_quality = 2
 
 [sub_resource type="CubeMesh" id=3]
-
-[sub_resource type="ConcavePolygonShape" id=4]
-data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
-
-[sub_resource type="ConcavePolygonShape" id=5]
-data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
-
-[sub_resource type="ConcavePolygonShape" id=6]
-data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
 
 [sub_resource type="CubeMesh" id=7]
 
@@ -61,56 +52,11 @@ uv1_scale = Vector3( 2, 2, 1 )
 
 [sub_resource type="BoxShape" id=14]
 
-[sub_resource type="Curve3D" id=15]
-_data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -0.800523, -0.75279, 3.88564, 0, 0, 0, 0, 0, 0, -0.642579, -0.709218, -22.8879, 0, 0, 0, 0, 0, 0, -15.3186, -0.619903, -47.4706, 0, 0, 0, 0, 0, 0, -5.44327, -0.59111, -75.4277, 0, 0, 0, 0, 0, 0, -5.55627, -0.653152, -101.22 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0 )
-}
-
-[sub_resource type="SpatialMaterial" id=16]
-flags_transparent = true
-albedo_color = Color( 0.176471, 0.254902, 0.521569, 0.54902 )
-roughness = 0.01
-normal_enabled = true
-normal_scale = 1.0
-normal_texture = ExtResource( 6 )
-uv1_scale = Vector3( 4, 4, 1 )
-uv1_offset = Vector3( 0.898278, 0, 0 )
-proximity_fade_enable = true
-proximity_fade_distance = 1.0
-
-[sub_resource type="PlaneMesh" id=17]
-material = SubResource( 16 )
-size = Vector2( 1000, 1000 )
-
-[sub_resource type="Animation" id=18]
-length = 10.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:mesh:material:uv1_offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 10 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 1, 0, 0 ) ]
-}
-
 [node name="Level01" type="Spatial"]
 script = ExtResource( 14 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
-
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( -0.000623812, -0.999714, -0.0239182, 0.0260648, -0.0239263, 0.999374, -0.99966, -6.98888e-10, 0.0260722, 14.1991, 17.4153, 0 )
-layers = 2147483649
-shadow_enabled = true
-shadow_color = Color( 0.768627, 0.768627, 0.768627, 1 )
-shadow_bias = 0.0
 
 [node name="Floor" type="Node" parent="."]
 
@@ -119,31 +65,15 @@ transform = Transform( 2, 0, 0, 0, -5, -1.31134e-06, 0, -4.37114e-07, 15, 0.526,
 mesh = SubResource( 3 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Floor/MeshInstance"]
-
-[node name="CollisionShape" type="CollisionShape" parent="Floor/MeshInstance/StaticBody"]
-shape = SubResource( 4 )
-
 [node name="MeshInstance2" type="MeshInstance" parent="Floor"]
 transform = Transform( -2, 0, 0, 0, -5, 0, 0, 0, -7, 0.517649, 0, -30.5375 )
 mesh = SubResource( 3 )
 material/0 = ExtResource( 5 )
 
-[node name="StaticBody" type="StaticBody" parent="Floor/MeshInstance2"]
-transform = Transform( 1, 2.84217e-14, 0, 0, 1, -5.68434e-14, 3.72529e-09, 0, 1, 0, 0, 0 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Floor/MeshInstance2/StaticBody"]
-shape = SubResource( 5 )
-
 [node name="MeshInstance4" type="MeshInstance" parent="Floor"]
 transform = Transform( -2, 0, 0, 0, -5, 0, 0, 0, -15, 0.513, 0, -60.4444 )
 mesh = SubResource( 3 )
 material/0 = ExtResource( 5 )
-
-[node name="StaticBody" type="StaticBody" parent="Floor/MeshInstance4"]
-
-[node name="CollisionShape" type="CollisionShape" parent="Floor/MeshInstance4/StaticBody"]
-shape = SubResource( 6 )
 
 [node name="Bridge3" type="MeshInstance" parent="Floor"]
 transform = Transform( 0.473438, 0, 0, 0, 0.0606875, 0, 0, 0, 4.22887, 1.68336, 4.74671, -19.5534 )
@@ -238,13 +168,6 @@ collision_mask = 0
 [node name="CollisionShape" type="CollisionShape" parent="Checkpoints/Checkpoint3"]
 shape = SubResource( 14 )
 
-[node name="Path" type="Path" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78563, 5.86618, 8.38377 )
-curve = SubResource( 15 )
-
-[node name="PathFollow" type="PathFollow" parent="Path"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.78563, -5.86618, -8.38377 )
-
 [node name="Pickups" type="Node" parent="."]
 
 [node name="Spatial" parent="Pickups" instance=ExtResource( 7 )]
@@ -297,17 +220,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7622, 6.27053, -19.8791 )
 [node name="Spatial16" parent="Pickups/Coins" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7622, 6.27053, -21.0336 )
 
-[node name="Water" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.735136, 2.26501, 0.328669 )
-visible = false
-mesh = SubResource( 17 )
-material/0 = null
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Water"]
-autoplay = "Water@Movement"
-playback_speed = 0.01
-anims/Water@Movement = SubResource( 18 )
-
 [node name="MatchStart" type="Timer" parent="."]
 wait_time = 4.0
 autostart = true
@@ -341,10 +253,10 @@ __meta__ = {
 }
 
 [node name="Label2" type="Label" parent="MatchStart/Control"]
-margin_left = -255.915
-margin_top = 461.075
-margin_right = 306.085
-margin_bottom = 537.075
+margin_left = -130.838
+margin_top = 241.509
+margin_right = 168.162
+margin_bottom = 282.509
 custom_fonts/font = ExtResource( 12 )
 custom_colors/font_color = Color( 1, 0.515625, 0, 1 )
 text = "KEEP PRESSED TO MOVE!"
@@ -362,14 +274,14 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="WinUI"]
-anchor_left = 7.674
-anchor_top = 8.96
-anchor_right = 7.674
-anchor_bottom = 8.96
-margin_left = -112.073
-margin_top = -35.3688
-margin_right = 119.927
-margin_bottom = 40.6312
+anchor_left = 4.03
+anchor_top = 7.036
+anchor_right = 4.03
+anchor_bottom = 7.036
+margin_left = -115.984
+margin_top = -76.0074
+margin_right = 116.016
+margin_bottom = -0.00744629
 custom_fonts/font = ExtResource( 12 )
 custom_colors/font_color = Color( 0, 1, 0.0784314, 1 )
 text = "YOU WIN!"
@@ -380,20 +292,20 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="WinUI"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 58.0
+margin_bottom = 42.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="WinUI/HBoxContainer"]
-position = Vector2( 91.8822, 639.279 )
-scale = Vector2( 6.15511, 4.67982 )
+position = Vector2( 63.3735, 345.282 )
+scale = Vector2( 1.70062, 1.45031 )
 normal = ExtResource( 15 )
 
 [node name="TouchScreenButton2" type="TouchScreenButton" parent="WinUI/HBoxContainer"]
-position = Vector2( 348.616, 641.166 )
-scale = Vector2( 6.15511, 4.67982 )
+position = Vector2( 208.836, 345.388 )
+scale = Vector2( 1.88271, 1.59235 )
 normal = ExtResource( 16 )
 [connection signal="body_entered" from="FinishLine/Area" to="." method="_on_Area_body_entered"]
 [connection signal="timeout" from="MatchStart" to="MatchStart" method="_on_MatchStart_timeout"]

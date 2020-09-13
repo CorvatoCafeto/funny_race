@@ -119,6 +119,7 @@ spring_length = 3.0
 transform = Transform( -0.999722, -0.0136795, 0.0192148, 0.0125493, -0.998253, -0.0577523, 0.0199713, -0.0574951, 0.998147, 0, 0, 0 )
 keep_aspect = 0
 current = true
+far = 40.0
 
 [node name="Score" parent="SpringArm/Camera" instance=ExtResource( 3 )]
 
